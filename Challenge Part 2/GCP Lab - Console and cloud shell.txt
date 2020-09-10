@@ -1,0 +1,99 @@
+Console and Cloud Shell
+
+Objectives
+
+   - Get access to Google Cloud.
+
+    -Create a Cloud Storage bucket using the Cloud Console.
+
+    -Create a Cloud Storage bucket using Cloud Shell.
+
+    -Become familiar with Cloud Shell features
+
+Task 1: Create a bucket using the Cloud Console
+
+gsutil mb gs://provy_buckets/
+
+Task 2: Create a bucket using Cloud Shell
+
+gsutil mb gs://provy_buckets2/
+
+Task 3: Become familiar with Cloud Shell features
+#Upload a file
+
+    #Open Cloud Shell.
+
+    #Click the three dots icon in the Cloud Shell toolbar to display further options.
+
+    #Click Upload file. Upload any file from your local machine to the Cloud Shell VM. 
+
+#confirm that the file was uploaded by typing this command
+
+ls
+
+#Copy the file into one of the buckets created earlier in the lab. Replace [MY_FILE] with the file you uploaded and [BUCKET_NAME] with one of your bucket names:
+
+gsutil cp provyfile.txt gs://provy_buckets/
+
+Task 4: Create a persistent state in Cloud Shell
+#To list available regions, execute the following command:
+gcloud compute regions list
+
+##Select a region from the list and note the value in any text editor
+
+-Create and verify an environment variable
+#Create an environment variable and replace [YOUR_REGION] with the region you selected in the previous step:
+INFRACLASS_REGION=us-central
+
+#Verify it with echo:
+echo $INFRACLASS_REGION
+
+-Append the environment variable to a file
+#Create a subdirectory for materials used in this class:
+mkdir infraclass
+
+#Create a file called config in the infraclass directory:
+touch infraclass/config
+
+#Append the value of your Region environment variable to the config file:
+echo INFRACLASS_REGION=$INFRACLASS_REGION >> ~/infraclass/config
+
+#Create a second environment variable for your Project ID, replacing [YOUR_PROJECT_ID] with your Project ID. 
+INFRACLASS_PROJECT_ID=12345ght
+
+#Append the value of your Project ID environment variable to the config file:
+echo INFRACLASS_PROJECT_ID=$INFRACLASS_PROJECT_ID >> ~/infraclass/config
+
+#Use the source command to set the environment variables, and use the echo command to verify that the project variable was set:
+source infraclass/config
+echo $INFRACLASS_PROJECT_ID
+
+#Close and re-open Cloud Shell. Then issue the echo command again
+
+echo $INFRACLASS_PROJECT_ID
+
+-Modify the bash profile and create persistence
+#Edit the shell profile with the following command:
+nano .profile
+
+#Add the following line to the end of the file:
+source infraclass/config
+
+#Press Ctrl+O, ENTER to save the file, and then press Ctrl+X to exit nano.
+#Close and then re-open Cloud Shell to cycle the VM.
+#Use the echo command to verify that the variable is still set:
+    
+echo $INFRACLASS_PROJECT_ID
+
+
+
+
+
+
+
+
+
+
+
+
+
